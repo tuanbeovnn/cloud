@@ -1,0 +1,225 @@
+package e1800958.vamk.assign10;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+    EditText edDate, edTime, edTitle, edPlace, edParticipant;
+    Button btnDate, btnTime, btnSubmit, btnAdd, btnSummary, btnSearch, btnSave, btnAbout;
+    TextView tvMain, tvTitle, tvPlace, tvParticipants, tvDate, tvTime;
+    RadioGroup r1, r2;
+    boolean isUpdate=false;
+    int index;
+    final int summaryRequestCode=1;
+    final int searchRequestCode=2;
+    final int aboutRequestCode=2;
+    SeekBar seekBar1;
+
+    SharedPreferences sharedPreferences;
+    private  ArrayList<Meeting> meetings;
+    private ArrayList<View> tv;
+    private String commentFileName;
+    String path;
+
+    private static final String FONT_SIZE_GUI="font_size";
+    private static final String FONT_COLOR_GUI="font_color";
+    private static final String BG_COLOR_GUI="bg_color";
+
+    String font_color;
+    String bg_color;
+    float fontSize;
+
+    DBAdapter dbAdapter=null;
+    Meeting m_update;
+
+
+    private void displayToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+    private void changeStyleFontSize(){
+        for (View v: tv) {
+            if (v instanceof TextView){
+                TextView t =(TextView) v;
+                t.setTextSize(fontSize);
+            }
+
+        }
+    }
+    private void changeStyleFontColor(){
+        for (View v: tv) {
+            if (v instanceof TextView){
+                TextView t =(TextView) v;
+                if (font_color.equals(getString(R.string.red))){
+                    t.setTextColor(Color.RED);
+                }else if(font_color.equals(getString(R.string.yellow))){
+                    t.setTextColor(Color.YELLOW);
+                }else{
+                    t.setTextColor(Color.BLACK);
+                }
+            }
+
+        }
+    }
+    private  void changeStyleBgColor(){
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.root);
+        if (bg_color.equals(getString(R.string.red))){
+            relativeLayout.setBackgroundColor(Color.RED);
+        }else if(bg_color.equals(getString(R.string.yellow))){
+            relativeLayout.setBackgroundColor(Color.YELLOW);;
+        }
+        else{
+            relativeLayout.setBackgroundColor(Color.WHITE);;
+        }
+    }
+
+
+    private void saveData() {
+        try{
+            FileOutputStream fos = openFileOutput(commentFileName, MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(meetings);
+            os.close();
+            fos.close();
+        }catch (FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.file_not_found), Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), getString(R.string.io_excp), Toast.LENGTH_LONG).show();
+        }
+
+    }
+    private ArrayList<Meeting> getData(){
+        ArrayList<Meeting> m= new ArrayList<Meeting>();
+        try{
+            FileInputStream fis = openFileInput(commentFileName);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            m= (ArrayList<Meeting>) is.readObject();
+            is.close();
+            fis.close();
+        }catch (FileNotFoundException e) {
+            return m;
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), getString(R.string.io_excp), Toast.LENGTH_LONG).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return  m;
+    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        dbAdapter = new DBAdapter(getApplicationContext());
+
+        commentFileName=getResources().getString(R.string.data);
+        path = getFilesDir().getAbsolutePath() + "/";
+
+        meetings= getData();
+
+        r1= findViewById(R.id.radio_group_font_gui);
+        r2= findViewById(R.id.radio_group_background);
+
+        tv= new ArrayList<View>();
+
+        tvMain= findViewById(R.id.main);
+        tv.add(tvMain);
+        tvTitle= findViewById(R.id.tv_title);
+        tv.add(tvTitle);
+        tvPlace= findViewById(R.id.tv_place);
+        tv.add(tvPlace);
+        tvParticipants= findViewById(R.id.tv_participant);
+        tv.add(tvParticipants);
+        tvDate= findViewById(R.id.tv_date);
+        tv.add(tvDate);
+        tvTime= findViewById(R.id.tv_time);
+        tv.add(tvTime);
+
+        btnDate= findViewById(R.id.button_date);
+        tv.add(btnDate);
+        btnTime= findViewById(R.id.button_time);
+        tv.add(btnTime);
+        btnAdd= findViewById(R.id.button_add);
+        tv.add(btnAdd);
+        btnSubmit= findViewById(R.id.button_submit);
+        tv.add(btnSubmit);
+        btnSummary= findViewById(R.id.button_summary);
+        tv.add(btnSummary);
+        btnSearch= findViewById(R.id.button_search);
+        tv.add(btnSearch);
+        btnAbout= findViewById(R.id.button_about);
+        tv.add(btnAbout);
+
+
+        edTitle= findViewById(R.id.ed_title);
+        tv.add(edTitle);
+        edPlace= findViewById(R.id.ed_place);
+        tv.add(edPlace);
+        edParticipant= findViewById(R.id.ed_participant);
+        tv.add(edParticipant);
+        edDate= findViewById(R.id.ed_date);
+        tv.add(edDate);
+        edTime= findViewById(R.id.ed_time);
+        tv.add(edTime);
+
+
+        seekBar1= findViewById(R.id.seekbar);
+
+        btnSave= findViewById(R.id.button_save);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedPreferences =getSharedPreferences(getString(R.string.setting1), MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putFloat(FONT_SIZE_GUI, seekBar1.getProgress());
+                editor.putString(FONT_COLOR_GUI, font_color);
+                editor.putString(BG_COLOR_GUI, bg_color);
+                editor.commit();
+                Toast.makeText(getApplicationContext(), R.string.setting_msg, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        SharedPreferences loadedSharedPrefs =getSharedPreferences(getString(R.string.setting1), MODE_PRIVATE);
+        fontSize = loadedSharedPrefs.getFloat(FONT_SIZE_GUI, 14.0f);
+        font_color= loadedSharedPrefs.getString(FONT_COLOR_GUI, getString(R.string.black));
+        bg_color= loadedSharedPrefs.getString(BG_COLOR_GUI, getString(R.string.white));
+        seekBar1.setProgress((int) fontSize);
+        changeStyleFontColor();
+        changeStyleFontSize();
+        changeStyleBgColor();
+
+
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            pu

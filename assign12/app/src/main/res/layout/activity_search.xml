@@ -1,0 +1,117 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:tag="yellow"
+    android:layout_gravity="center"
+    android:id="@+id/root">
+
+    <TextView
+        android:id="@+id/search_act"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:text="@string/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+    <TextView
+        android:id="@+id/tv_participant"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="@string/participants"
+        android:layout_below="@id/search_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <EditText
+        android:id="@+id/ed_participant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_participant"
+        android:layout_below="@id/search_act"
+        android:inputType="text"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="@string/date"
+        android:layout_below="@id/ed_participant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/ed_date"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_participant"
+        android:layout_toLeftOf="@id/button_date"
+        android:layout_below="@id/ed_participant"
+        android:enabled="false"/>
+
+    <Button
+        android:id="@+id/button_date"
+        android:text="@string/btn_selectdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ed_participant"
+        android:layout_alignParentEnd="true"
+        android:onClick="selectDateTime"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="@string/time"
+        android:layout_below="@id/ed_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/ed_time"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_participant"
+        android:layout_toLeftOf="@id/button_date"
+        android:layout_below="@id/ed_date"
+        android:enabled="false"/>
+
+    <Button
+        android:id="@+id/button_time"
+        android:text="@string/btn_selecttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ed_date"
+        android:layout_alignParentEnd="true"
+        android:onClick="selectDateTime"/>
+
+    <Button
+        android:id="@+id/button_search"
+        android:text="@string/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ed_time"
+        android:layout_centerHorizontal="true"
+        android:onClick="Search" />
+
+    <Button
+        android:id="@+id/button_back"
+        android:text="@string/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_search"
+        android:layout_centerHorizontal="true"
+        android:onClick="back"/>
+
+</RelativeLayout>

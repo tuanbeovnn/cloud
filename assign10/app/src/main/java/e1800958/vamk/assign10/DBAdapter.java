@@ -1,0 +1,199 @@
+package e1800958.vamk.assign10;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+
+public class DBAdapter {
+    private static final String TAG = "cccc";
+    private static final String DATABASE_NAME = "MyDBMeeting";
+    private static final String TABLE_NAME = "meetings";
+
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_PLACE = "place";
+    private static final String KEY_PARTICIPANTS = "participants";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_TIME = "time";
+
+    private static final int DATABASE_VERSION = 1;
+
+    private static final String TABLE_CREATE ="CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + KEY_TITLE + " TEXT PRIMARY KEY, " + KEY_PLACE + " TEXT NOT NULL, " + KEY_PARTICIPANTS + " TEXT NOT NULL, "
+            +KEY_DATE + " TEXT NOT NULL,"+ KEY_TIME + " TEXT NOT NULL);";
+
+    private static final String TABLE_DELETE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+    private Context context;
+    private DatabaseHelper dbHelper;
+    private SQLiteDatabase sqlLiteDb;
+
+    public DBAdapter(Context context) {
+        this.context = context;
+        dbHelper = new DatabaseHelper(context);
+
+    }
+
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+        public DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            try {
+                db.execSQL(TABLE_CREATE);
+//                Log.d("cccc", "yes");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+                    + newVersion + ". All old data will be deleted! ");
+            db.execSQL(TABLE_DELETE);
+            onCreate(db);
+        }
+    }
+
+
+    public DBAdapter openDBConnection() {
+        sqlLiteDb = dbHelper.getWritableDatabase();
+
+        return this;
+    }
+
+    public void closeDBConnection() {
+        dbHelper.close();
+    }
+
+    public boolean addMeeting(Meeting m) {
+        //Here we open database connection
+        openDBConnection();
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_TITLE, m.getTitle());
+        initialValues.put(KEY_PLACE, m.getPlace());
+        initialValues.put(KEY_PARTICIPANTS, m.getParticipantText());
+        initialValues.put(KEY_DATE, m.getDate());
+        initialValues.put(KEY_TIME, m.getTime());
+        long updatedRows= sqlLiteDb.insert(TABLE_NAME, null, initialValues);
+        closeDBConnection();
+        if (updatedRows==-1) return  false;
+        return true;
+    }
+
+    public boolean deleteMeeting(String title) {
+        openDBConnection();
+        int updatedRows=sqlLiteDb.delete(TABLE_NAME, KEY_TITLE + "=" + "'"+title+"'", null);
+        closeDBConnection();
+        if (updatedRows==-1) return  false;
+        return true;
+    }
+    public ArrayList<Meeting> getAllMeetings() {
+        ArrayList<Meeting> list= new ArrayList<Meeting>();
+        openDBConnection();
+        Cursor cursor= sqlLiteDb.query(TABLE_NAME, new String[] { KEY_TITLE, KEY_PLACE,
+                KEY_PARTICIPANTS, KEY_DATE, KEY_TIME }, null, null, null, null, null);
+        if(cursor !=null && cursor.moveToFirst()) {
+            do {
+                Meeting m= new Meeting();
+                m.setTitle( cursor.getString(0));
+                m.setPlace(cursor.getString(1));
+                m.setParticipantsText(cursor.getString(2));
+                m.setDate(cursor.getString(3));
+                m.setTime(cursor.getString(4));
+                list.add(m);
+            } while(cursor.moveToNext());
+        }
+        closeDBConnection();
+        return  list;
+    }
+
+    public ArrayList<Meeting> getMeeting(String par) {
+        ArrayList<Meeting> list= new ArrayList<Meeting>();
+        //Here we open database connection
+        openDBConnection();
+        Cursor cursor = sqlLiteDb.query(true, TABLE_NAME, new String[] {
+                        KEY_TITLE, KEY_PLACE, KEY_PARTICIPANTS, KEY_DATE, KEY_TIME }, KEY_PARTICIPANTS + " LIKE " + "'%"+par+"%'",
+                null, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                Meeting m= new Meeting();
+                m.setTitle( cursor.getString(0));
+                m.setPlace(cursor.getString(1));
+                m.setParticipantsText(cursor.getString(2));
+                m.setDate(cursor.getString(3));
+                m.setTime(cursor.getString(4));
+                list.add(m);
+            } while(cursor.moveToNext());
+        }
+        //Here we close database connection
+        closeDBConnection();
+        return list;
+    }
+    public ArrayList<Meeting> getMeetingDate(String date) {
+        ArrayList<Meeting> list= new ArrayList<Meeting>();
+        //Here we open database connection
+        openDBConnection();
+        Cursor cursor = sqlLiteDb.query(true, TABLE_NAME, new String[] {
+                        KEY_TITLE, KEY_PLACE, KEY_PARTICIPANTS, KEY_DATE, KEY_TIME }, KEY_DATE + " = " + "'"+date+"'",
+                null, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                Meeting m= new Meeting();
+                m.setTitle( cursor.getString(0));
+                m.setPlace(cursor.getString(1));
+                m.setParticipantsText(cursor.getString(2));
+                m.setDate(cursor.getString(3));
+                m.setTime(cursor.getString(4));
+                list.add(m);
+            } while(cursor.moveToNext());
+        }
+        //Here we close database connection
+        closeDBConnection();
+        return list;
+    }
+    public ArrayList<Meeting> getMeetingTime(String time) {
+        ArrayList<Meeting> list= new ArrayList<Meeting>();
+        //Here we open database connection
+        openDBConnection();
+        Cursor cursor = sqlLiteDb.query(true, TABLE_NAME, new String[] {
+                        KEY_TITLE, KEY_PLACE, KEY_PARTICIPANTS, KEY_DATE, KEY_TIME }, KEY_TIME + " = " + "'"+time+"'",
+                null, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                Meeting m= new Meeting();
+                m.setTitle( cursor.getString(0));
+                m.setPlace(cursor.getString(1));
+                m.setParticipantsText(cursor.getString(2));
+                m.setDate(cursor.getString(3));
+                m.setTime(cursor.getString(4));
+                list.add(m);
+            } while(cursor.moveToNext());
+        }
+        //Here we close database connection
+        closeDBConnection();
+        return list;
+    }
+
+    public boolean updateMeeting(Meeting m) {
+        //Here we open database connection
+        openDBConnection();
+        ContentValues values = new ContentValues();
+        values.put(KEY_PLACE, m.getPlace());
+        values.put(KEY_PARTICIPANTS, m.getParticipantText());
+        values.put(KEY_DATE, m.getDate());
+        values.put(KEY_TIME, m.getTime());
+        int updatedRows=sqlLiteDb.update(TABLE_NAME, values,  KEY_TITLE+"=" + "'"+ m.getTitle()+"'",
+                null);
+        closeDBConnection();
+        if (updatedRows==-1) return  false;
+        return true;
+    }
+
+
+}

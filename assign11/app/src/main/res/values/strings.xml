@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">assign11</string>
+    <string name="title_summary_activity">Summary Activity</string>
+    <string name="title_search_activity">Search Activity</string>
+    <string name="title_about_activity">About Activity</string>
+    <string name="meeting">Meeting Calendar</string>
+    <string name="title">Title</string>
+    <string name="place">Place</string>
+    <string name="participants">Participant</string>
+    <string name="image">Image</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="btn_add">Add More</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_summary">Summary</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_search">Search</string>
+    <string name="btn_selectdate">Select Date</string>
+    <string name="btn_selecttime">Select Time</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_about">About</string>
+    <string name="btn_img">Upload Image</string>
+    <string name="error1">Missing Fields</string>
+    <string name="error2">Paticipant list is empty</string>
+    <string name="error3">Already in database</string>
+    <string name="error4">Error</string>
+    <string name="msg">Saved successfully</string>
+    <string name="font_size">Font Size</string>
+    <string name="font_color">Font Color</string>
+    <string name="background_color">Background Color</string>
+    <string name="gui">Change GUI styles</string>
+    <string name="button">Change button styles</string>
+    <string name="black">Black</string>
+    <string name="red">Red</string>
+    <string name="yellow">Yellow</string>
+    <string name="white">White</string>
+    <string name="save">Save</string>
+    <string name="setting1">setting1</string>
+    <string name="setting2">setting2</string>
+    <string name="setting3">setting3</string>
+    <string name="setting_msg">Set successfully!</string>
+    <string name="data">data</string>
+    <string name="file_not_found">File not found!</string>
+    <string name="io_excp">Input Output Error !</string>
+    <string name="select_image_title">Select Image</string>
+    <string name="null_bitmap">The bitmap is null!</string>
+    <string name="upgrading_db_version">Upgrading database from version</string>
+    <string name="warning_data_delete">All old data will be deleted!</string>
+    <string name="db_class_tag">DBAdapter</string>
+
+    <string name="dir_name">data/databases/</string>
+    <string name="db_name">meetings.db</string>
+    <string name="table_name">meeting</string>
+    <string name="file_exists">File exists?</string>
+    <string-array name="table_column_names">
+        <item>title</item>
+        <item>place</item>
+        <item>participants</item>
+        <item>image</item>
+        <item>date</item>
+        <item>time</item>
+    </string-array>
+    <string-array name="table_column_types">
+        <item>text</item>
+        <item>text</item>
+        <item>text</item>
+        <item>BLOB</item>
+        <item>text</item>
+        <item>text</item>
+    </string-array>
+</resources>

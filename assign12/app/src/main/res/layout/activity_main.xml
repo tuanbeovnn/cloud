@@ -1,0 +1,335 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:tag="yellow"
+        android:layout_gravity="center"
+        android:id="@+id/root">
+        <TextView
+            android:id="@+id/main"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="@string/meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/gui"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="@string/gui"
+            android:layout_below="@id/main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tv_font_size"
+            android:textSize="20dp"
+            android:text="@string/font_size"
+            android:layout_below="@id/gui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gui"
+            android:layout_toRightOf="@+id/tv_font_size"/>
+
+        <TextView
+            android:id="@+id/tv_font_color"
+            android:textSize="20dp"
+            android:text="@string/font_color"
+            android:layout_below="@id/tv_font_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_font_gui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_font_size"
+            android:layout_toRightOf="@+id/tv_background"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_def_gui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/black" />
+
+            <RadioButton
+                android:id="@+id/radio_red_gui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/red" />
+
+            <RadioButton
+                android:id="@+id/radio_yellow_gui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yellow" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_background"
+            android:textSize="20dp"
+            android:text="@string/background_color"
+            android:layout_below="@id/radio_group_font_gui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_font_color"
+            android:layout_toRightOf="@+id/tv_background"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_def_gui1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/white" />
+
+            <RadioButton
+                android:id="@+id/radio_red_gui1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/red" />
+
+            <RadioButton
+                android:id="@+id/radio_white_gui1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yellow" />
+
+        </RadioGroup>
+
+
+
+
+
+
+
+        <Button
+            android:id="@+id/button_save"
+            android:text="@string/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_background"
+            android:layout_centerHorizontal="true" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/title"
+            android:layout_below="@id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+        <EditText
+            android:id="@+id/ed_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_participant"
+            android:layout_below="@id/button_save"
+            android:inputType="text"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/place"
+            android:layout_below="@id/ed_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/ed_place"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_participant"
+            android:layout_below="@id/ed_title"
+            android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/tv_participant"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/participants"
+            android:layout_below="@id/ed_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/ed_participant"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_participant"
+            android:layout_toLeftOf="@+id/button_date"
+            android:layout_below="@id/ed_place"
+            android:inputType="textMultiLine" />
+
+
+
+        <Button
+            android:id="@+id/button_add"
+            android:text="@string/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ed_place"
+            android:layout_alignParentEnd="true"
+            android:onClick="addMoreParticipant"/>
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/tv_participant"
+            android:layout_marginTop="20dp"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/ed_link"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_participant"
+            android:layout_toLeftOf="@+id/button_date"
+            android:layout_below="@id/image_view"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/button_img"
+            android:text="@string/btn_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ed_link"
+            android:layout_marginLeft="120dp"
+            android:onClick="uploadImg"/>
+        <Button
+            android:id="@+id/button_img1"
+            android:text="@string/btn_img1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ed_link"
+            android:layout_toRightOf="@+id/button_img"
+            android:onClick="uploadImgFromInternet"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/date"
+            android:layout_below="@id/button_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/ed_date"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_participant"
+            android:layout_toLeftOf="@id/button_date"
+            android:layout_below="@id/button_img"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/button_date"
+            android:text="@string/btn_selectdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_img"
+            android:layout_alignParentEnd="true"
+            android:onClick="selectDateTime"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/time"
+            android:layout_below="@id/ed_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/ed_time"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_participant"
+            android:layout_toLeftOf="@id/button_date"
+            android:layout_below="@id/ed_date"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/button_time"
+            android:text="@string/btn_selecttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ed_date"
+            android:layout_alignParentEnd="true"
+            android:onClick="selectDateTime"/>
+
+        <Button
+            android:id="@+id/button_submit"
+            android:text="@string/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ed_time"
+            android:layout_centerHorizontal="true"
+            android:onClick="Submit"/>
+
+        <Button
+            android:id="@+id/button_summary"
+            android:text="@string/btn_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_submit"
+            android:layout_centerHorizontal="true"
+            android:onClick="getSummary"/>
+
+
+        <Button
+            android:id="@+id/button_search"
+            android:text="@string/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_summary"
+            android:layout_centerHorizontal="true"
+            android:onClick="getSearch"/>
+
+        <Button
+            android:id="@+id/button_about"
+            android:text="@string/btn_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_search"
+            android:layout_centerHorizontal="true"
+            android:onClick="getAbout"/>
+
+
+
+    </RelativeLayout>
+</ScrollView>
